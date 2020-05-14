@@ -12,14 +12,17 @@ export default function ProductProvider({ children }) {
   const [featured, setFeatured] = React.useState([]);
 
   React.useEffect(() => {
+    setLoading(true);
     axios.get(`${url}/products`)
       .then(response => {
         setProducts(response.data);
+        setLoading(false);
       });
     return () => {
 
     }
   }, [])
+
   return (
     <ProductContext.Provider value={{ products, loading, featured }}>
       {children}
