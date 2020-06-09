@@ -21,16 +21,34 @@ function CartProvider({ children }) {
       return total += cartItem.amount * cartItem.price;
     }, 0)
     newTotal = parseFloat(newTotal.toFixed(2));
-    console.log(newTotal);
     setTotal(newTotal);
   }, [cart]);
 
   //remove item 
-  const removeItem = id => { };
+  const removeItem = id => {
+    setCart([...cart].filter(item => item.id !== id));
+  };
   //increase amount 
-  const increaseAmount = id => { };
+  const increaseAmount = id => {
+    let newCart = [...cart].map(item => {
+      return item.id === id ? { ...item, amount: item.amount + 1 } : { ...item }
+    })
+
+    setCart(newCart);
+  };
   //decrease amount 
-  const decreaseAmount = id => { };
+  const decreaseAmount = (id, amount) => {
+    if (amount === 1) {
+      removeItem(id);
+      return;
+    } else {
+      let newCart = [...cart].map(item => {
+        return item.id === id ? { ...item, amount: item.amount - 1 } : { ...item }
+      })
+
+      setCart(newCart);
+    }
+  };
   //add to cart
   const addToCart = product => { };
   //clear item 
