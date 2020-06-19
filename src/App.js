@@ -12,6 +12,7 @@ import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Header from "./components/Header";
 import Alert from "./components/Alert";
+import PrivateRoute from "./components/PrivateRoute";
 // components
 
 export default function App() {
@@ -29,9 +30,9 @@ export default function App() {
         <Route path="/cart">
           <Cart />
         </Route>
-        <Route path="/checkout">
+        <PrivateRoute path="/checkout" name="john" msg="hello">
           <Checkout />
-        </Route>
+        </PrivateRoute>
         <Route path="/login">
           <Login />
         </Route>
