@@ -23,8 +23,8 @@ function UserProvider({ children }) {
   }
 
   const [alert, setAlert] = React.useState({
-    show: false,
-    msg: '',
+    show: true,
+    msg: 'hello',
     type: 'success'
   });
 
