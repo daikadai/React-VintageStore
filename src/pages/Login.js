@@ -11,8 +11,7 @@ import { UserContext } from "../context/user";
 export default function Login() {
   const history = useHistory();
   // setup user context
-  const value = React.useContext(UserContext);
-  console.log(value);
+  const { userLogin } = React.useContext(UserContext);
 
   //state values
   const [email, setEmail] = React.useState('');
@@ -43,10 +42,10 @@ export default function Login() {
 
     }
     if (response) {
-      //
-      console.log('success');
-      console.log(response);
-
+      const { jwt: token, user: { username } } = response.data;
+      const newUser = { token, username };
+      userLogin(newUser);
+      history.push("/products");
     } else {
       // show alert
     }
