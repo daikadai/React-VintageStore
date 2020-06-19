@@ -11,7 +11,7 @@ import { UserContext } from "../context/user";
 export default function Login() {
   const history = useHistory();
   // setup user context
-  const { userLogin } = React.useContext(UserContext);
+  const { userLogin, alert, showAlert } = React.useContext(UserContext);
 
   //state values
   const [email, setEmail] = React.useState('');
@@ -19,7 +19,7 @@ export default function Login() {
   const [username, setUsername] = React.useState('default');
   const [isMember, setIsMember] = React.useState(true);
 
-  let isEmpty = !email || !password || !username;
+  let isEmpty = !email || !password || !username || alert.show;
 
   console.log(isEmpty);
 
@@ -32,6 +32,9 @@ export default function Login() {
   };
 
   const handleSubmit = async e => {
+    showAlert({
+      msg: 'accessing user data. please await...'
+    })
     // alert
     e.preventDefault();
     let response;
@@ -45,8 +48,15 @@ export default function Login() {
       const { jwt: token, user: { username } } = response.data;
       const newUser = { token, username };
       userLogin(newUser);
+      showAlert({
+        msg: `you are logged in: ${username}. shop away my friend`
+      })
       history.push("/products");
     } else {
+      showAlert({
+        msg: 'there was an error. please try again...',
+        type: 'danger'
+      })
       // show alert
     }
   };
