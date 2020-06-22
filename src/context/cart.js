@@ -32,6 +32,7 @@ function CartProvider({ children }) {
 
   //remove item 
   const removeItem = id => {
+    dispatch({ type: "REMOVE", payload: id });
     // setCart([...cart].filter(item => item.id !== id));
   };
   //increase amount 
