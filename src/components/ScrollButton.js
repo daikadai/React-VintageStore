@@ -1,8 +1,9 @@
 import React from 'react'
 import { FaAngleDoubleUp } from 'react-icons/fa';
+import { UserContext } from '../context/user';
 
 const ScrollButton = () => {
-  const height = 200;
+  const { height } = React.useContext(UserContext);
   const scrollBackToTop = () => {
     window.scrollTo({
       top: 0,
