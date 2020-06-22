@@ -4,6 +4,7 @@ import { UserContext } from "../context/user";
 import { useHistory } from "react-router-dom";
 import EmptyCart from "../components/Cart/EmptyCart";
 import { injectStripe, StripeProvider, Elements, CardElement } from "react-stripe-elements";
+import submitOrder from "../strapi/submitOrder";
 
 function Checkout(props) {
   const { cart, total, clearCart } = React.useContext(CartContext);
@@ -20,8 +21,27 @@ function Checkout(props) {
 
     const { token } = response;
     if (token) {
-      console.log(response);
+      setError('');
+      const { id } = token;
+      let order = await submitOrder({
+        name: name,
+        total: total,
+        items: cart,
+        stripeTokenId: id,
+        userToken: user.token
+      })
 
+      if (order) {
+        showAlert({ msg: 'your order is complete' });
+        clearCart();
+        history.push('/');
+        return;
+      } else {
+        showAlert({
+          msg: 'there was an error with your office. please try again!',
+          type: 'danger'
+        })
+      }
     } else {
       hideAlert();
       setError(response.error.message);
