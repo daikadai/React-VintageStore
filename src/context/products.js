@@ -15,7 +15,7 @@ export default function ProductProvider({ children }) {
   // Extra State Value
   const [sorted, setSorted] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [filter, setFilters] = React.useState({
+  const [filters, setFilters] = React.useState({
     search: "",
     category: "all",
     shipping: false,
@@ -57,7 +57,7 @@ export default function ProductProvider({ children }) {
       featured,
       sorted,
       page,
-      filter,
+      filters,
       changePage,
       updateFilters
     }}>
