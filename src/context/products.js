@@ -12,12 +12,24 @@ export default function ProductProvider({ children }) {
   const [products, setProducts] = React.useState([]);
   const [featured, setFeatured] = React.useState([]);
 
+  // Extra State Value
+  const [sorted, setSorted] = React.useState([]);
+  const [page, setPage] = React.useState(0);
+  const [filter, setFilters] = React.useState({
+    search: "",
+    category: "all",
+    shipping: false,
+    price: 'all'
+  });
+
   React.useEffect(() => {
     setLoading(true);
     axios.get(`${url}/products`)
       .then(response => {
         const featured = featuredProducts(flattenProducts(response.data));
         const products = flattenProducts(response.data);
+
+        setSorted(products);
         setProducts(products);
         setFeatured(featured);
         setLoading(false);
@@ -29,8 +41,26 @@ export default function ProductProvider({ children }) {
     }
   }, [])
 
+  const changePage = index => {
+    console.log(index);
+  }
+
+  const updateFilters = e => {
+    console.log(e);
+
+  }
+
   return (
-    <ProductContext.Provider value={{ products, loading, featured }}>
+    <ProductContext.Provider value={{
+      products,
+      loading,
+      featured,
+      sorted,
+      page,
+      filter,
+      changePage,
+      updateFilters
+    }}>
       {children}
     </ProductContext.Provider>
   )
