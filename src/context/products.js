@@ -2,7 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import url from '../utils/URL';
-import { featuredProducts, flattenProducts } from '../utils/helpers';
+import { featuredProducts, flattenProducts, paginate } from '../utils/helpers';
 export const ProductContext = React.createContext();
 
 // Provider, Consumer
@@ -29,7 +29,7 @@ export default function ProductProvider({ children }) {
         const featured = featuredProducts(flattenProducts(response.data));
         const products = flattenProducts(response.data);
 
-        setSorted(products);
+        setSorted(paginate(products));
         setProducts(products);
         setFeatured(featured);
         setLoading(false);

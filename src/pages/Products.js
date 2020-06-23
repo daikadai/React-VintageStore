@@ -12,3 +12,5 @@ export default function Products() {
 
   return <ProductList title="our products" products={sorted} />
 }
+
+

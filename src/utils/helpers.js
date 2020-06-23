@@ -19,3 +19,9 @@ export function featuredProducts(data) {
     return item.featured === true;
   })
 }
+
+// paginate
+export function paginate(products) {
+  //our code goes here
+  return products;
+}
