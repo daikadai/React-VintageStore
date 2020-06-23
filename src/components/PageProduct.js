@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, Fragment } from 'react'
 import { ProductContext } from '../context/products'
 import ProductList from './Products/ProductList';
 
@@ -8,7 +8,23 @@ const PageProduct = () => {
 
   if (sorted[page]) {
     return (
-      <ProductList products={sorted[page]} />
+      <Fragment>
+        <ProductList products={sorted[page]} />
+        {sorted.length > 1 && <article className="pagination-buttons">
+          {/* prev */}
+          {sorted.map((_, index) => {
+            return (
+              <button
+                onClick={() => changePage(index)}
+                key={index}
+                className={`page-btn ${page === index && `page-btn-current`}`}
+              >
+                {index + 1}
+              </button>
+            )
+          })}
+        </article>}
+      </Fragment>
     )
   } else {
     return (
