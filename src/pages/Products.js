@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { ProductContext } from "../context/products";
 import Loading from "../components/Loading";
-import ProductList from "../components/Products/ProductList";
+import Filters from "../components/Filters";
+import PageProduct from "../components/PageProduct";
 
 export default function Products() {
   const { loading, sorted } = React.useContext(ProductContext);
@@ -10,7 +11,12 @@ export default function Products() {
     return <Loading />;
   }
 
-  return <ProductList title="our products" products={sorted} />
+  return (
+    <Fragment>
+      <Filters />
+      <PageProduct />
+    </Fragment>
+  )
 }
 
 
