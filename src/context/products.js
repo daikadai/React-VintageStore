@@ -41,6 +41,14 @@ export default function ProductProvider({ children }) {
     }
   }, [])
 
+  React.useEffect(() => {
+    let newProducts = [...products].sort((a, b) => a.price - b.price);
+
+
+    setPage(0);
+    setSorted(paginate(newProducts));
+  }, [filters, products])
+
   const changePage = index => {
     setPage(index);
   }
